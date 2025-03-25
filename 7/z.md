@@ -1,4 +1,6 @@
-# 7-Zip
+# 7z
+
+## 7-Zip
 
 **Available for:** Linux, Windows, macOS  
 **License:** GNU LGPL (free & open source)
