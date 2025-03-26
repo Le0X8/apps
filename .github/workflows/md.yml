@@ -22,7 +22,8 @@ jobs:
     - run: node ./scripts/md.js
     - run: |
         git stash
-        git checkout markdown
+        git checkout -B markdown
         git stash pop
         git add .
         git commit -m "[automated] ${{ github.event.head_commit.message }}"
+        git push origin markdown
