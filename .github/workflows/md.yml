@@ -24,8 +24,8 @@ jobs:
         git stash -u
         git checkout -B markdown
         git stash pop
-        git add .
+        git stage -A
         git config user.name "automated"
         git config user.email "noreply@leox.dev"
         git commit -m "[automated] ${{ github.event.head_commit.message }}"
-        git push origin markdown
+        git push origin markdown --force
