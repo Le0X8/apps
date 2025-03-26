@@ -1,0 +1,32 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Generate Markdown
+
+on:
+  push:
+    branches: [ "main" ]
+permissions:
+  contents: write
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 22
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - run: node ./scripts/md.js
+    - run: |
+        git stash -u
+        git branch -D markdown &>/dev/null || true
+        git checkout --orphan markdown
+        git stash pop
+        git stage -A
+        git config user.name "actions-user"
+        git config user.email "actions@github.com"
+        git commit -m "[automated] generated markdown"
+        git push origin markdown --force
