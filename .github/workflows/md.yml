@@ -22,10 +22,11 @@ jobs:
     - run: node ./scripts/md.js
     - run: |
         git stash -u
-        git checkout -B markdown
+        git branch -D markdown &>/dev/null || true
+        git checkout --orphan markdown
         git stash pop
         git stage -A
-        git config user.name "github-actions[bot]"
+        git config user.name "actions-user"
         git config user.email "actions@github.com"
-        git commit -m "[automated] ${{ github.event.head_commit.message }}"
+        git commit -m "[automated] generated markdown"
         git push origin markdown --force
