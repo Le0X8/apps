@@ -6,9 +6,8 @@ name: Generate Markdown
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+permissions:
+  contents: write
 jobs:
   build:
 
@@ -21,3 +20,9 @@ jobs:
       with:
         node-version: 22
     - run: node ./scripts/md.js
+    - run: |
+        git stash
+        git checkout markdown
+        git stash pop
+        git add .
+        git commit -m "[automated] ${{ github.event.head_commit.message }}"
