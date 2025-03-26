@@ -19,8 +19,8 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 22
-    - run: node ./scripts/md.js
     - run: |
+        node ./scripts/md.js
         git stash
         git checkout -B markdown
         git stash pop
